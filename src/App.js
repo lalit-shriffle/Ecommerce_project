@@ -7,7 +7,7 @@ document.addEventListener("click", (e) => {
     if (target.tagName !== 'A' || !target.getAttribute("href")) return;
     e.preventDefault();
 
-    console.log(event.target.getAttribute("href"),window.location.hash)
+    // prevent unneccessary reload
     const isPathNotChanged = event.target.getAttribute("href")=== window.location.hash
     if(isPathNotChanged) return;
 
@@ -35,6 +35,9 @@ const routes = {
     "/signup": {
         page: "/src/pages/signup.html"
     },
+    "/add": {
+        page: "/src/pages/addProduct.html"
+    },
 };
 
 function urlRoute(event) {
@@ -47,26 +50,28 @@ function urlRoute(event) {
 }
 
 export async function urlLocationHandler() {
-    console.log("rannn")
    
     // Use hash to get the location
     let location = window.location.hash.replace("#", "") || "/";
-    console.log(location)
+
+    // only accessible to admin
     if(location==="/dashboard"){
         const isUserAdmin = await isAdmin();
         if(!isUserAdmin) location=window.location.hash='#/'
     }
+
     const route = routes[location] || routes["404"];
 
     try {
+        // fetching and injecting html pages
         const pageToInject = await fetch(route.page).then((response) => response.text());
         document.querySelector("#root").innerHTML = pageToInject;
 
+        // removing nav from auth pages
         if (location === "/signin" || location === "/signup") {
             document.querySelector("#navbar").style.display = "none";
         } else {
             document.querySelector("#navbar").style.display = "block";
-            // console.log("injecting ")
             await injectNavbar();
         }
     } catch (err) {

@@ -1,3 +1,4 @@
+
 const firebaseApp = firebase.initializeApp({
   apiKey: "AIzaSyBkMicCOO6OGgscQoRPZa5ihDM53lpH-pg",
   authDomain: "ecommerce-ac775.firebaseapp.com",
@@ -9,4 +10,4 @@ const firebaseApp = firebase.initializeApp({
 });
 export const db = firebaseApp.firestore();
 export const auth = firebaseApp.auth();
-// console.log(firebaseApp);
+// export const storage = getStorage(firebaseApp)

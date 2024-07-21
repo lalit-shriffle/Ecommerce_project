@@ -1,12 +1,19 @@
+import { db } from '../firebase/config.js';
 import { isAdmin } from '../helper/auth.js';
 
 document.addEventListener('DOMContentLoaded', async (event) => {
-  const { products } = await import('../constants/data.js');
+  // const { products } = await import('../constants/data.js');
   const { listProducts } = await import('./product.js');
   const { favorites } = await import('../constants/data.js');
-  
   waitElement().then(() => {
-      listProducts(products, favorites);
+    db.collection("product")
+      .get()
+      .then((data)=>{console.log("data",data)
+         const products = data._delegate._snapshot.docChanges
+         listProducts(products, favorites);
+        console.log(products)
+      })
+      .catch((error)=>console.log(error));
   });
 });
 

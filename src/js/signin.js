@@ -27,8 +27,10 @@ function loginUser() {
 
         if (!querySnapshot.empty) {
           const userData = querySnapshot.docs[0].data();
-          console.log("data", userData);
-          saveUserInfo({ role: userData.role, email: userData.email });
+          const userId =  querySnapshot.docs[0].id
+          console.log("id",userId)
+
+          saveUserInfo({ role: userData.role, email: userData.email ,id:userId});
 
           const isUserAdmin = await isAdmin();
           if (isUserAdmin) {
