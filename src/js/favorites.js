@@ -6,33 +6,46 @@ document.addEventListener("DOMContentLoaded", () => {
     const userId = await getUserId();
     console.log(userId);
 
+    
+
     try {
       const user = await db.collection("users").doc(userId).get();
       const favorites =user._delegate._document.data.value.mapValue.fields.favorites.stringValue;
       const parsedFavorites = JSON.parse(favorites);
       console.log("parased",parsedFavorites);
 
-      const allProducts = await getAllProducts(parsedFavorites);
-      const products = [];
-      for (const product of allProducts) {
-        console.log("productys",await product);
-        products.push(await product)
+      const allProducts =  getAllProducts(parsedFavorites);
+      if(!allProducts || allProducts.length) {
+        const productContainer = document.querySelector("#fav-product-container");
+  productContainer.innerHTML = "<h1>No favorites</h1>";
       }
-      listFavProducts(products)
+      listFavProducts(allProducts)
     } catch (error) {
       console.log(error);
     }
   });
 });
+ function getAllProducts(parsedFavorites) {
+    const productData = JSON.parse(localStorage.getItem("products"));
 
-async function getAllProducts(parsedFavorites) {
-  return await parsedFavorites?.fav?.map(async (id) => {
-    const product = await db.collection("product").doc(id).get();
-    console.log(product);
-    const prodId = product._delegate._key.path.segments[1]
-    const productData = product._delegate._document.data.value.mapValue.fields;
-    return {...productData,id:prodId}
-  });
+    const dataToSend = [];
+    productData.forEach(element => {
+            const data = element.doc.data.value.mapValue.fields
+            const idOfElement  = element.doc.key.path.segments[6]
+            const dataPrepared = {
+              title:data.title.stringValue,
+              desc:data.desc.stringValue,
+              id:idOfElement,
+            }
+            console.log("iddd",dataPrepared.id);
+console.log(parsedFavorites.fav.includes(dataPrepared.id));
+            if(parsedFavorites.fav.includes(dataPrepared.id)){
+              dataToSend.push(dataPrepared);
+            }
+             
+    });
+
+    return dataToSend
 }
 
 export function listFavProducts(products, favorites = []) {
@@ -44,13 +57,12 @@ export function listFavProducts(products, favorites = []) {
   productContainer.innerHTML = "";
 
   products.map((product) => {
-    
     productContainer.innerHTML += `
           <div class="card" style="width: 18rem;">
               <img src=${imageUrl}>
               <div class="card-body">
-                  <h5 class="card-title">${product.title.stringValue}</h5>
-                  <p class="card-text">${product?.desc.stringValue}</p>
+                  <h5 class="card-title">${product.title}</h5>
+                  <p class="card-text">${product?.desc}</p>
                   <button 
                       id="button-${product.id}"
                       type="button" 

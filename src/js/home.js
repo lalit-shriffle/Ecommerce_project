@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       .then((data)=>{console.log("data",data)
          const products = data._delegate._snapshot.docChanges
          listProducts(products, favorites);
-        console.log(products)
+         localStorage.setItem("products",JSON.stringify(products));
+        console.log("pros",products)
       })
       .catch((error)=>console.log(error));
   });
