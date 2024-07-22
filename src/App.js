@@ -38,6 +38,9 @@ const routes = {
     "/add": {
         page: "/src/pages/addProduct.html"
     },
+    "/edit": {
+        page: "/src/pages/editProduct.html"
+    }
 };
 
 function urlRoute(event) {
@@ -59,7 +62,9 @@ export async function urlLocationHandler() {
         const isUserAdmin = await isAdmin();
         if(!isUserAdmin) location=window.location.hash='#/'
     }
-
+    if(location.startsWith("/edit")){
+        location = "/edit"
+    }
     const route = routes[location] || routes["404"];
 
     try {

@@ -1,4 +1,5 @@
 import { db } from "../firebase/config.js";
+import { getUserId } from "../helper/auth.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   waitElement().then(() => {
@@ -14,6 +15,7 @@ function addProduct() {
     const title = document.querySelector("#title")
     const desc = document.querySelector("#desc")
     console.log(file);
+
 
     // storage.ref("/images" + file.name);
 

@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 .add({
                   email: email,
                   password: password,
+                  favorites:JSON.stringify({'fav':[]})
                 })
                 .then(() => {
                   window.location.hash = "#/signin"; // Redirect to the login page

@@ -20,6 +20,19 @@ export async function isAdmin() {
     }
 }
 
+export async function getUserId (){
+    try{
+        const data = await isUser();
+        if(data.id){
+            return data.id;
+        }else{
+            return false
+        }
+    }catch(error){
+        return false
+    }
+}
+
 export function logoutUser (){
     localStorage.removeItem("user");
     window.location.hash = "#/signin"
