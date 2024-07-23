@@ -16,10 +16,10 @@ function loginUser() {
     const email = document.querySelector("#email").value;
     const password = document.querySelector("#password").value;
 
-    const isValidate = validateSignInData(email, password);
+    const isValidate = validateSignInData(email, password); // validate data
     if (isValidate) {
-      console.log("calling");
       try {
+        // save user
         const querySnapshot = await db.collection("users")
           .where("email", "==", email)
           .where("password", "==", password)
@@ -28,11 +28,10 @@ function loginUser() {
         if (!querySnapshot.empty) {
           const userData = querySnapshot.docs[0].data();
           const userId =  querySnapshot.docs[0].id
-          console.log("id",userId)
 
-          saveUserInfo({ role: userData.role, email: userData.email ,id:userId});
+          saveUserInfo({ role: userData.role, email: userData.email ,id:userId}); // save user to local storage
 
-          const isUserAdmin = await isAdmin();
+          const isUserAdmin = await isAdmin(); // get role
           if (isUserAdmin) {
             window.location.hash = "#/dashboard";
             window.location.reload();
@@ -44,12 +43,10 @@ function loginUser() {
           // No matching document found
           const errorFeedback = document.querySelector("#error-feedback");
           errorFeedback.innerHTML = "Incorrect email or password!";
-          console.log("un auth");
         }
       } catch (error) {
         const errorFeedback = document.querySelector("#error-feedback");
         errorFeedback.innerHTML = "Something went wrong";
-        console.error("Error getting documents: ", error);
       }
     }
   });
@@ -59,13 +56,12 @@ function waitForSigninElements() {
   return new Promise((resolve) => {
     const checkElements = () => {
       const signInButton = document.querySelector("#signin-button");
-
       if (signInButton) {
-        resolve(); // Resolve the promise if the element is found
+        resolve(); 
       } else {
-        setTimeout(checkElements, 100); // Check again after a short delay
+        setTimeout(checkElements, 100); 
       }
     };
-    checkElements(); // Start checking for elements
+    checkElements();
   });
 }

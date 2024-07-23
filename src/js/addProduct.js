@@ -11,13 +11,9 @@ function addProduct() {
   const addButton = document.querySelector("#add-button");
 
   addButton.addEventListener("click", () => {
-    const file = document.querySelector("#image").files[0];
+    // const file = document.querySelector("#image").files[0];
     const title = document.querySelector("#title")
     const desc = document.querySelector("#desc")
-    console.log(file);
-
-
-    // storage.ref("/images" + file.name);
 
     db.collection("product")
       .add({
@@ -34,11 +30,12 @@ function addProduct() {
   });
 }
 
+
+// wait for element to inject
 function waitElement() {
   return new Promise((resolve) => {
     const checkElements = () => {
       const container = document.querySelector("#add-product-container");
-
       if (container) {
         resolve();
       } else {

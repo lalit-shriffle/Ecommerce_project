@@ -2,17 +2,17 @@ import { db } from '../firebase/config.js';
 import { isAdmin } from '../helper/auth.js';
 
 document.addEventListener('DOMContentLoaded', async (event) => {
-  // const { products } = await import('../constants/data.js');
   const { listProducts } = await import('./product.js');
   const { favorites } = await import('../constants/data.js');
+
   waitElement().then(() => {
+    // getting all products
     db.collection("product")
       .get()
-      .then((data)=>{console.log("data",data)
+      .then((data)=>{
          const products = data._delegate._snapshot.docChanges
          listProducts(products, favorites);
-         localStorage.setItem("products",JSON.stringify(products));
-        console.log("pros",products)
+         localStorage.setItem("products",JSON.stringify(products)); // storing to local-storage
       })
       .catch((error)=>console.log(error));
   });

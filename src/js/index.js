@@ -1,6 +1,7 @@
 import { isAdmin, isUser, logoutUser } from "../helper/auth.js";
 
 export async function injectNavbar(){
+    // injecting navbar
     const nav = await fetch("/src/components/navbar.html").then((data)=>data.text()).catch(error=>console.log("error in nav fetching",error));
     document.querySelector("#navbar").innerHTML=nav;
 
@@ -13,15 +14,9 @@ export async function injectNavbar(){
         logoutButton.addEventListener("click",()=>{
             logoutUser();
         })
-
-
     }else{
-        document.querySelector("#login-link").classList.remove("visually-hidden")
-        document.querySelector("#logout-link").classList.add("visually-hidden")
-      
-        
-            
- 
+        document.querySelector("#login-link").classList.remove("visually-hidden");
+        document.querySelector("#logout-link").classList.add("visually-hidden");
     }
 
     // removing dashboard link if role is not admin

@@ -11,7 +11,7 @@ export function listProducts (products,favorites){
         const product  = productData.doc.data.value.mapValue.fields;
         const id = productData.doc.key.path.segments[6]
 
-       
+  
         productContainer.innerHTML +=`
         <div class="card shadow-lg " style="width: 18rem;">
             <img src=${imageUrl}>
@@ -49,21 +49,22 @@ function attachEventListenets (products,favorites){
 }
 
 
+// add product to favorite
 async function addFavoriteProject(productId) {
     const userId = await getUserId();
+
     if(!userId) {
       window.location.hash = "#/signin"
     }
+
    try{
-    const response = await db.collection("users").doc(userId).get();
+    const response = await db.collection("users").doc(userId).get(); // get user details
     const favorites = response._delegate._document.data.value.mapValue.fields.favorites.stringValue;
     const parsedFavorites = JSON.parse(favorites);
 
     if(!parsedFavorites.fav.includes(productId)){
       parsedFavorites.fav.push(productId);
-      console.log("favsss",parsedFavorites);
-      console.log("stringy fi",parsedFavorites);
-      console.log("iddd",userId);
+
       db.collection("users").doc(userId)
         .update({
           favorites:JSON.stringify(parsedFavorites)
@@ -73,22 +74,15 @@ async function addFavoriteProject(productId) {
         })
         .catch(error=>console.log(error))
 
-
     }else{
-      console.log("favsss",  JSON.stringify(parsedFavorites));
       console.log("already in array");
     }
-    
-
-
-    // const parsedFavorites = JSON.parse(favorites);
-    // console.log(parsedFavorites);
-
    }catch(error){
     console.log(error);
    }
   }
 
+  
   function updateData (productId,title,desc){
     db.collection("product").doc(productId)
         .update({title:title,

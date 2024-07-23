@@ -10,4 +10,3 @@ const firebaseApp = firebase.initializeApp({
 });
 export const db = firebaseApp.firestore();
 export const auth = firebaseApp.auth();
-// export const storage = getStorage(firebaseApp)

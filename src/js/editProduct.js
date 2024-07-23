@@ -4,25 +4,23 @@ document.addEventListener("DOMContentLoaded",(e)=>{
    
     waitElement()
                 .then(()=>{
-
                     const params = location.href.split("edit?")[1];
-                    const productId = params.split("=")[1]
-                    console.log("params",productId);
+                    const productId = params.split("=")[1];
 
+                    // get particular product
                     db.collection("product").doc(productId)
                     .get()
                     .then((data)=>{
-                        const product = data._delegate._document.data.value.mapValue.fields
-            
+                        const product = data._delegate._document.data.value.mapValue.fields;
                         let titleData = product.title.stringValue;
                         let descData  = product.desc.stringValue;
-                        console.log(titleData,descData);
 
                         const submit = document.querySelector("#submit-button");
 
                         const title = document.querySelector("#title");
                         const desc = document.querySelector("#desc");
-                         // set data 
+
+                         // set data to input
                         title.value = titleData,
                         desc.value = descData; 
 
@@ -30,20 +28,19 @@ document.addEventListener("DOMContentLoaded",(e)=>{
                         updateData(productId,title.value,desc.value);
                           })
                     })
-                    .catch(error=>console.log(error))
-
+                    .catch(error=>console.log(error));
     })
 })
 
 
+// update product data
 function updateData (productId,title,desc){
     db.collection("product").doc(productId)
         .update({title:title,
                 desc:desc
                 })
         .then((data)=>{
-            console.log(data);
-            window.location.hash = "#/dashboard"
+            window.location.hash = "#/dashboard"  // back to dashboard page
             window.location.reload();
         })
         .catch(error=>{

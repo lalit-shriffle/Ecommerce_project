@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const confirmPassword = document.querySelector("#confirm-password").value;
 
       // Validating user inputs
-      const isValidate = validateSignupData(email, password, confirmPassword);
+      const isValidate = validateSignupData(email, password, confirmPassword); // validate data
 
       if (isValidate) {
         db.collection("users")
@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
           .catch((error) => {
             const errorFeedback = document.querySelector("#error-feedback");
             errorFeedback.innerHTML = "something went wrong";
-            console.error("Error getting documents: ", error);
           });
       }
     });
