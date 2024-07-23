@@ -33,7 +33,7 @@ function listProductss(products, favorites) {
     const product  = productData.doc.data.value.mapValue.fields;
     const id = productData.doc.key.path.segments[6]
     productContainer.innerHTML += `
-        <div class="card" style="width: 18rem;">
+        <div class="card shadow-lg" style="width: 18rem;">
     <img src="${imageUrl}" class="card-img-top" alt="${product.title}">
     <div class="card-body">
         <h5 class="card-title">${product.title.stringValue}</h5>
@@ -44,7 +44,7 @@ function listProductss(products, favorites) {
                   id="delete-button-${id}"
                   type="button" 
                   class="btn btn-danger w-100"
-                  value="${id}"
+                  value="${id} shadow"
                 >
                   Delete
                 </button>
@@ -54,7 +54,7 @@ function listProductss(products, favorites) {
                   id="edit-button-${id}"
                   type="button" 
                   class="btn btn-primary w-100"
-                  value="${id}"
+                  value="${id} shadow"
                 >
                   Edit
                 </button>
@@ -101,7 +101,9 @@ async function deleteProduct(id){
 
 
 function editProduct (id){
+  if(id){
     window.location.hash = `#/edit?id=${id}`
+  }
 }
 
 

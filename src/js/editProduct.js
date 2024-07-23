@@ -4,8 +4,10 @@ document.addEventListener("DOMContentLoaded",(e)=>{
    
     waitElement()
                 .then(()=>{
-                    const params = location.href.split("?")[2];
+
+                    const params = location.href.split("edit?")[1];
                     const productId = params.split("=")[1]
+                    console.log("params",productId);
 
                     db.collection("product").doc(productId)
                     .get()
@@ -20,18 +22,15 @@ document.addEventListener("DOMContentLoaded",(e)=>{
 
                         const title = document.querySelector("#title");
                         const desc = document.querySelector("#desc");
-
                          // set data 
                         title.value = titleData,
                         desc.value = descData; 
 
                         submit.addEventListener("click",(e)=>{
                         updateData(productId,title.value,desc.value);
+                          })
                     })
                     .catch(error=>console.log(error))
-
-
-                })
 
     })
 })

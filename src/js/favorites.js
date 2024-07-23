@@ -58,7 +58,7 @@ export function listFavProducts(products, favorites = []) {
 
   products.map((product) => {
     productContainer.innerHTML += `
-          <div class="card" style="width: 18rem;">
+          <div class="card shadow-lg" style="width: 18rem;">
               <img src=${imageUrl}>
               <div class="card-body">
                   <h5 class="card-title">${product.title}</h5>

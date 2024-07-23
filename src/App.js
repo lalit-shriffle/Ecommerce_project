@@ -89,3 +89,4 @@ urlLocationHandler();
 
 // Handle back/forward navigation
 window.addEventListener("hashchange", urlLocationHandler);
+window.addEventListener('popstate',urlLocationHandler);
