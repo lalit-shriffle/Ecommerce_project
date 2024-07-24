@@ -27,17 +27,22 @@ function listAllRows(userData){
     tableBody.innerHTML="";
     userData.map((user,index)=>{
         const userName = user.doc.data.value.mapValue.fields.email.stringValue
+        const admin = user.doc.data.value.mapValue.fields?.role?.stringValue
         const favorites = user.doc.data.value.mapValue.fields?.favorites.stringValue
         const parsedFavorites = JSON.parse(favorites).fav;
         console.log(parsedFavorites);
+
+        if(!admin){
+            tableBody.innerHTML += `
+            <tr>
+              <td>${index+1}</td>
+               <td>${userName}</td>
+               <td>${parsedFavorites.length}</td>
+            </tr>
+          `
+        }
         
-        tableBody.innerHTML += `
-          <tr>
-            <td>${index+1}</td>
-             <td>${userName}</td>
-             <td>${parsedFavorites.length}</td>
-          </tr>
-        `
+        
        
     })
 

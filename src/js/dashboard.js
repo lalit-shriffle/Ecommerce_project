@@ -2,12 +2,12 @@ import { db } from "../firebase/config.js";
 import { isAdmin } from "../helper/auth.js";
 import { reloadDomContent, reloadHashChange } from "../helper/contentReload.js";
 import { waitElement } from "../helper/waitElement.js";
+import { editProductData } from "./editProduct.js";
 
+reloadDomContent(dashboard);
+reloadHashChange(dashboard);
 
-reloadDomContent(dashboard)
-reloadHashChange(dashboard)
-
-async function dashboard(){
+async function dashboard() {
   const { favorites } = await import("../constants/data.js");
   console.log("content loaded");
 
@@ -60,6 +60,7 @@ async function dashboard(){
              </div>
              <div class="col-6 p-1">
                  <button 
+                 data-bs-toggle="modal" data-bs-target="#editModal"
                    id="edit-button-${id}"
                    type="button" 
                    class="btn btn-primary w-100"
@@ -110,11 +111,10 @@ async function dashboard(){
     }
 
     // redirect to edit page
-    function editProduct(id) {
-      if (id) {
-        window.location.hash = `#/edit?id=${id}`;
-      }
+    function editProduct(productId) {
+      console.log("idd", productId);
+      editProductData(productId)
+     
     }
   });
-
 }

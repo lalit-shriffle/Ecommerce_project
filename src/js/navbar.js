@@ -3,7 +3,7 @@ import { waitElement } from "../helper/waitElement.js";
 
 reloadDomContent(navbar);
 reloadHashChange(navbar)
-window.onbeforeunload=navbar
+
 
 
 export function navbar(){
@@ -18,8 +18,7 @@ export function navbar(){
             }
         }
 
-        
-    
+
         for(const link of links ){
             const a = link.children[0];
             a.addEventListener("click",(e)=>{
