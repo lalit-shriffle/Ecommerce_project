@@ -7,9 +7,9 @@ document.addEventListener("DOMContentLoaded", async (event) => {
   waitElement().then(async() => {
     const addButton = document.querySelector("#add-button");
   
-    addButton.addEventListener("click",(e)=>{
-        window.location.hash = "#/add"  // redirect to add product page
-    });
+    // addButton.addEventListener("click",(e)=>{
+    //     window.location.hash = "#/add"  // redirect to add product page
+    // });
 
    try{
     // getting all products

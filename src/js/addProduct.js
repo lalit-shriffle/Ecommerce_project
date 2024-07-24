@@ -22,9 +22,12 @@ function addProduct() {
         image: "",
       })
       .then((data) => {
+        const modalCloseBtn = document.querySelector("#modal-close-btn");
+        modalCloseBtn.click()
         console.log("added", data);
         title.value = "";
-        desc.value = ""
+        desc.value = "";
+        
       })
       .catch((error) => console.log(error));
   });

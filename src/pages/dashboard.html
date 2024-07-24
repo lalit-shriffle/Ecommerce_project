@@ -1,11 +1,52 @@
-<!-- <div class="container"> -->
+<div class="container">
   <div
     class=" mt-5 d-flex gap-2 flex-wrap justify-content-center"
     id="product-container-dash"
   >
     <!-- cards  -->
   </div>
-<!-- </div> -->
-<button id="add-button" class="btn btn-primary rounded-circle px-2 py-0 position-fixed bottom-0 end-0 mx-2 mb-3 shadow-lg"><span class="display-5">+</span></button>
+
+
 </div>
+<!-- Button trigger modal -->
+<button id="add-button" type="button" class="btn btn-primary s rounded-circle px-2 py-0 position-fixed bottom-0 end-0 mx-2 mb-3 shadow-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  +
+</button>
+<!-- <button id="add-button" class="btn btn-primary rounded-circle px-2 py-0 position-fixed bottom-0 end-0 mx-2 mb-3 shadow-lg"><span class="display-5">+</span></button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="modal-close-btn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+  <div style=" max-width: 450px;" id="add-product-container" class="container shadow-lg p-4 rounded-3">
+    <h2 >Add New Item</h2>
+    <form style="max-width: 400px;" class="d-flex flex-column gap-4">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input id="title" type="text" class="form-control" id="title" placeholder="Enter title">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="desc" class="form-control" id="description" rows="3" placeholder="Enter description"></textarea>
+      </div>
+      <button id="add-button" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+        
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+</div>
+<script type="module" src="/src/js/dashboard.js"></script>
 
