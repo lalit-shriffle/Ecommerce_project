@@ -10,7 +10,7 @@ export function listProducts (products,favorites){
     products?.map((productData, idx)=>{
         const product  = productData.doc.data.value.mapValue.fields;
         const id = productData.doc.key.path.segments[6]
-
+        const isFavorite = favorites.includes(id);
   
         productContainer.innerHTML +=`
         <div class="card shadow-lg " style="width: 18rem;">
@@ -21,16 +21,15 @@ export function listProducts (products,favorites){
                 <button 
                     id="button-${id}"
                     type="button" 
-                    class="add-button btn  btn-primary ${favorites.includes(id) && "bg-secondary"}" 
+                    class="add-button btn   ${isFavorite ? "bg-secondary text-light " : "btn-primary"}" 
                     value=${id}
                     >
-                 Add to Favorite
+                ${isFavorite?"Already added":"Add to favorite"}
                 </button>
             </div>
         </div>
         `
     })
-
 
     // add event listeners
     attachEventListenets(products,favorites)
@@ -43,14 +42,14 @@ function attachEventListenets (products,favorites){
         const id = product.doc.key.path.segments[6]
         const button = document.querySelector("#button-"+id);
         button.addEventListener("click",(e)=>{
-            addFavoriteProject(id)
+            addFavoriteProduct(id)
         })
     })
 }
 
 
 // add product to favorite
-async function addFavoriteProject(productId) {
+async function addFavoriteProduct(productId) {
     const userId = await getUserId();
 
     if(!userId) {
@@ -71,6 +70,7 @@ async function addFavoriteProject(productId) {
         })
         .then((data)=>{
           console.log("pushed",data);
+
         })
         .catch(error=>console.log(error))
 
@@ -83,17 +83,3 @@ async function addFavoriteProject(productId) {
   }
 
   
-//   function updateData (productId,title,desc){
-//     db.collection("product").doc(productId)
-//         .update({title:title,
-//                 desc:desc
-//                 })
-//         .then((data)=>{
-//             console.log(data);
-//             window.location.hash = "#/dashboard"
-//             window.location.reload();
-//         })
-//         .catch(error=>{
-//             console.log(error);
-//         })
-// }

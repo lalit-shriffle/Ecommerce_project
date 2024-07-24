@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const allProducts =  getAllProducts(parsedFavorites);
 
       // no products
-      if(!allProducts || allProducts.length<0) {
+      if(!allProducts || allProducts.length<=0) {
         const productContainer = document.querySelector("#fav-product-container");
         productContainer.innerHTML = "<h1>No favorites</h1>";
       }
@@ -60,7 +60,7 @@ export function listFavProducts(products, favorites = []) {
 
   products.map((product) => {
     productContainer.innerHTML += `
-          <div class="card shadow-lg" style="width: 18rem;">
+          <div id=${`element${product.id}`} class="card shadow-lg" style="width: 18rem;">
               <img src=${imageUrl}>
               <div class="card-body">
                   <h5 class="card-title">${product.title}</h5>
@@ -108,7 +108,10 @@ async function removeFromFav(id){
         db.collection("users").doc(userId).update({
             favorites:JSON.stringify({fav:newFav})
         })
-        .then((data)=>console.log("removed successfully"))
+        .then((data)=>{
+          const element = document.querySelector(`#element${id}`);
+          element.remove();
+        })
         .catch(error=>console.log(error))
     }catch(error){
         console.log(error);
