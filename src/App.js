@@ -8,12 +8,9 @@ document.addEventListener("click", (e) => {
     e.preventDefault();
 
     // prevent unneccessary reload
-    console.log(e.target.getAttribute("href"),window.location.hash.substring(1))
-    const result = isPathNotChanged
-    if(result) return;
-
+    console.log("result",e.target.getAttribute("href"),window.location.hash)
+    
     urlRoute(e);
-    // window.location.reload();
 
 });
 
@@ -41,15 +38,23 @@ const routes = {
     },
     "/edit": {
         page: "/src/pages/editProduct.html"
+    },
+    "/analytics": {
+        page: "/src/pages/analytics.html"
     }
 };
 
 function urlRoute(event) {
-    event = event || window.event;
+    event = event 
     event.preventDefault();
    
     // Use hash-based routing
     window.location.hash = event.target.getAttribute("href");
+    
+    const result = isPathNotChanged(event)
+    if(result) return;
+    window.location.reload();
+
     urlLocationHandler();
 }
 
@@ -76,27 +81,27 @@ export async function urlLocationHandler() {
         // removing nav from auth pages
         if (location === "/signin" || location === "/signup") {
             document.querySelector("#navbar").style.display = "none";
-        } else {
-            document.querySelector("#navbar").style.display = "block";
-            await injectNavbar();
-        }
+        } 
+        
     } catch (err) {
         console.log("page inject error", err);
     }
 }
 
-function isPathNotChanged(){
+function isPathNotChanged(e){
     let location =  e.target.getAttribute("href");
     let newLocation = window.location.hash.substring(1)
     if(location.startsWith("#")){
-        location.substring(1)
+        location = location.substring(1)
     }
     if(newLocation.startsWith("#")){
-        newLocation.substring(1)
+        newLocation = newLocation.substring(1)
     }
-
+    console.log(location===newLocation);
     return location===newLocation
 }
+
+
 // Run the handler for the initial load
 urlLocationHandler();
 

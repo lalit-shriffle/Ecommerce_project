@@ -2,8 +2,8 @@ import { isAdmin, isUser, logoutUser } from "../helper/auth.js";
 
 export async function injectNavbar(){
     // injecting navbar
-    const nav = await fetch("/src/components/navbar.html").then((data)=>data.text()).catch(error=>console.log("error in nav fetching",error));
-    document.querySelector("#navbar").innerHTML=nav;
+    // const nav = await fetch("/src/components/navbar.html").then((data)=>data.text()).catch(error=>console.log("error in nav fetching",error));
+    // document.querySelector("#navbar").innerHTML=nav;
 
     // removing login link if user is logged in
     const isUserSigned  =  await isUser();

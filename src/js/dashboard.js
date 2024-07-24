@@ -1,9 +1,15 @@
 import { db } from "../firebase/config.js";
 import { isAdmin } from "../helper/auth.js";
+import { reloadDomContent, reloadHashChange } from "../helper/contentReload.js";
 import { waitElement } from "../helper/waitElement.js";
 
-document.addEventListener("DOMContentLoaded", async (event) => {
+
+reloadDomContent(dashboard)
+reloadHashChange(dashboard)
+
+async function dashboard(){
   const { favorites } = await import("../constants/data.js");
+  console.log("content loaded");
 
   waitElement("#product-container-dash").then(async () => {
     let products = [];
@@ -110,4 +116,5 @@ document.addEventListener("DOMContentLoaded", async (event) => {
       }
     }
   });
-});
+
+}
