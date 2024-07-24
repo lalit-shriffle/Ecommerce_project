@@ -1,9 +1,10 @@
 import { db } from "../firebase/config.js";
 import { isAdmin, saveUserInfo } from "../helper/auth.js";
 import { validateSignInData } from "../helper/validation.js";
+import { waitElement } from "../helper/waitElement.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  waitForSigninElements().then(() => {
+  waitElement("#signin-button").then(() => {
     loginUser();
   });
 });
@@ -52,16 +53,4 @@ function loginUser() {
   });
 }
 
-function waitForSigninElements() {
-  return new Promise((resolve) => {
-    const checkElements = () => {
-      const signInButton = document.querySelector("#signin-button");
-      if (signInButton) {
-        resolve(); 
-      } else {
-        setTimeout(checkElements, 100); 
-      }
-    };
-    checkElements();
-  });
-}
+

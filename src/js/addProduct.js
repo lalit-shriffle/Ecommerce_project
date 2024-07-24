@@ -1,8 +1,9 @@
 import { db } from "../firebase/config.js";
 import { getUserId } from "../helper/auth.js";
+import { waitElement } from "../helper/waitElement.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  waitElement().then(() => {
+  waitElement("#add-product-container").then(() => {
     addProduct();
   });
 });
@@ -41,17 +42,3 @@ function addProduct() {
 }
 
 
-// wait for element to inject
-function waitElement() {
-  return new Promise((resolve) => {
-    const checkElements = () => {
-      const container = document.querySelector("#add-product-container");
-      if (container) {
-        resolve();
-      } else {
-        setTimeout(checkElements, 100); // Check again after 100ms
-      }
-    };
-    checkElements();
-  });
-}

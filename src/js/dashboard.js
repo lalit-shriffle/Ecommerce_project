@@ -1,10 +1,11 @@
 import { db } from "../firebase/config.js";
 import { isAdmin } from "../helper/auth.js";
+import { waitElement } from "../helper/waitElement.js";
 
 document.addEventListener("DOMContentLoaded", async (event) => {
   const { favorites } = await import("../constants/data.js");
 
-  waitElement().then(async() => {
+  waitElement("#product-container-dash").then(async() => {
     const addButton = document.querySelector("#add-button");
   
     // addButton.addEventListener("click",(e)=>{
@@ -103,19 +104,4 @@ function editProduct (id){
   if(id){
     window.location.hash = `#/edit?id=${id}`
   }
-}
-
-// wait for injection
-function waitElement() {
-  return new Promise((resolve) => {
-    const checkElements = () => {
-      const container = document.querySelector("#product-container-dash");
-      if (container) {
-        resolve();
-      } else {
-        setTimeout(checkElements, 100); // Check again after 100ms
-      }
-    };
-    checkElements();
-  });
 }

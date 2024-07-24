@@ -83,17 +83,17 @@ async function addFavoriteProject(productId) {
   }
 
   
-  function updateData (productId,title,desc){
-    db.collection("product").doc(productId)
-        .update({title:title,
-                desc:desc
-                })
-        .then((data)=>{
-            console.log(data);
-            window.location.hash = "#/dashboard"
-            window.location.reload();
-        })
-        .catch(error=>{
-            console.log(error);
-        })
-}
+//   function updateData (productId,title,desc){
+//     db.collection("product").doc(productId)
+//         .update({title:title,
+//                 desc:desc
+//                 })
+//         .then((data)=>{
+//             console.log(data);
+//             window.location.hash = "#/dashboard"
+//             window.location.reload();
+//         })
+//         .catch(error=>{
+//             console.log(error);
+//         })
+// }

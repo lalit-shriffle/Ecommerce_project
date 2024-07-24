@@ -1,8 +1,9 @@
 import { db } from "../firebase/config.js";
+import { waitElement } from "../helper/waitElement.js";
 
 document.addEventListener("DOMContentLoaded",(e)=>{
    
-    waitElement()
+    waitElement("#edit-product-container")
                 .then(()=>{
                     const params = location.href.split("edit?")[1];
                     const productId = params.split("=")[1];
@@ -49,16 +50,3 @@ function updateData (productId,title,desc){
 }
 
 
-function waitElement() {
-    return new Promise((resolve) => {
-      const checkElements = () => {
-        const container = document.querySelector("#edit-product-container");
-        if (container) {
-          resolve();
-        } else {
-          setTimeout(checkElements, 100); 
-        }
-      };
-      checkElements();
-    });
-  }

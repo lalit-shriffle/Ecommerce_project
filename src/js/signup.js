@@ -1,9 +1,10 @@
 import { db } from "../firebase/config.js";
 import { validateSignupData } from "../helper/validation.js";
+import { waitElement } from "../helper/waitElement.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Ensure elements are present before calling registerUser
-  waitForSignupElements().then(() => {
+  waitElement("#signup-button").then(() => {
     const signUpButton = document.querySelector("#signup-button");
 
     signUpButton.addEventListener("click", (e) => {
@@ -50,17 +51,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function waitForSignupElements() {
-  return new Promise((resolve) => {
-    const checkElements = () => {
-      const signUpButton = document.querySelector("#signup-button");
 
-      if (signUpButton) {
-        resolve(); // Resolve the promise if all elements are found
-      } else {
-        setTimeout(checkElements,100) // Check again after a short delay
-      }
-    };
-    checkElements(); // Start checking for elements
-  });
-}

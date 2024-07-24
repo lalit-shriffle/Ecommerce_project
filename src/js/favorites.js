@@ -1,8 +1,9 @@
 import { db } from "../firebase/config.js";
 import { getUserId } from "../helper/auth.js";
+import { waitElement } from "../helper/waitElement.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  waitElement().then(async () => {
+  waitElement("#fav-product-container").then(async () => {
     const userId = await getUserId();
 
     try {
@@ -114,16 +115,4 @@ async function removeFromFav(id){
     }
 }
 
-function waitElement() {
-  return new Promise((resolve) => {
-    const checkElements = () => {
-      const container = document.querySelector("#fav-product-container");
-      if (container) {
-        resolve();
-      } else {
-        setTimeout(checkElements, 100); // Check again after 100ms
-      }
-    };
-    checkElements();
-  });
-}
+
