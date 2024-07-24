@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
   waitElement("#product-container").then(async() => {
     let parsedFavorites = []
     const userId = await getUserId()
+    
     db.collection("users").doc(userId).get()
       .then((user)=>{
         const favorites =user._delegate._document.data.value.mapValue.fields.favorites.stringValue;

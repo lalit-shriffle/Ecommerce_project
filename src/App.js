@@ -8,11 +8,12 @@ document.addEventListener("click", (e) => {
     e.preventDefault();
 
     // prevent unneccessary reload
-    const isPathNotChanged = event.target.getAttribute("href")=== window.location.hash
-    if(isPathNotChanged) return;
+    console.log(e.target.getAttribute("href"),window.location.hash.substring(1))
+    const result = isPathNotChanged
+    if(result) return;
 
     urlRoute(e);
-    window.location.reload();
+    // window.location.reload();
 
 });
 
@@ -84,6 +85,18 @@ export async function urlLocationHandler() {
     }
 }
 
+function isPathNotChanged(){
+    let location =  e.target.getAttribute("href");
+    let newLocation = window.location.hash.substring(1)
+    if(location.startsWith("#")){
+        location.substring(1)
+    }
+    if(newLocation.startsWith("#")){
+        newLocation.substring(1)
+    }
+
+    return location===newLocation
+}
 // Run the handler for the initial load
 urlLocationHandler();
 

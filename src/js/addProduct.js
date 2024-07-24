@@ -1,3 +1,4 @@
+import { allFeildRequiredText } from "../constants/constants.js";
 import { db } from "../firebase/config.js";
 import { getUserId } from "../helper/auth.js";
 import { waitElement } from "../helper/waitElement.js";
@@ -15,10 +16,9 @@ function addProduct() {
   addButton.addEventListener("click", () => {
     const title = document.querySelector("#title")
     const desc = document.querySelector("#desc")
-    console.log("rannnn");
 
     if(!title.value || !desc.value){
-      return formFeedback.innerHTML="Please fill all fields"
+      return formFeedback.innerHTML=allFeildRequiredText
     }
 
     else{

@@ -1,3 +1,6 @@
+import { confirmPassRequired, emailRegex, emailRequiredText, invalidEmailText, passwordLengthText, passwordNotMatched, passwordRequiredText } from "../constants/constants.js";
+
+
 export function validateSignupData(email, password, confirmPassword) {
     const emailFeedback = document.querySelector("#email-feedback");
     const passwordFeedback = document.querySelector("#password-feedback");
@@ -11,28 +14,27 @@ export function validateSignupData(email, password, confirmPassword) {
     // Email validation
     console.log("eamil",email)
     if (!email || email.length<=0) {
-        emailFeedback.innerHTML = "Email is required";
+        emailFeedback.innerHTML = emailRequiredText;
     } else if (!validateEmailFormat(email)) {
-        emailFeedback.innerHTML = "Invalid email format";
+        emailFeedback.innerHTML = invalidEmailText;
     }
 
     // Password validation
     if (!password) {
-        passwordFeedback.innerHTML = "Password is required";
+        passwordFeedback.innerHTML = passwordRequiredText;
     } else if (password.length < 4 || password.length >= 14) {
-        passwordFeedback.innerHTML = "Password should be 4 to 14 characters long";
+        passwordFeedback.innerHTML = passwordLengthText
     }
 
     // Confirm password validation
     if (!confirmPassword) {
-        confirmFeedback.innerHTML = "Confirm password is required";
+        confirmFeedback.innerHTML = confirmPassRequired
     } else if (password !== confirmPassword) {
-        confirmFeedback.innerHTML = "Passwords do not match";
+        confirmFeedback.innerHTML = passwordNotMatched
     }
 
     // Utility function to validate email format
     function validateEmailFormat(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
 
@@ -52,21 +54,19 @@ export function validateSignInData (email,password){
     // Email validation
     console.log("email",email)
     if (!email || email.length<=0) {
-        emailFeedback.innerHTML = "Email is required";
+        emailFeedback.innerHTML = emailRequiredText;
     } else if (!validateEmailFormat(email)) {
-        emailFeedback.innerHTML = "Invalid email format";
+        emailFeedback.innerHTML = invalidEmailText;
     }
-
     // Password validation
     if (!password) {
-        passwordFeedback.innerHTML = "Password is required";
+        passwordFeedback.innerHTML = passwordRequiredText;
     } 
 
     
 
     // Utility function to validate email format
     function validateEmailFormat(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
 

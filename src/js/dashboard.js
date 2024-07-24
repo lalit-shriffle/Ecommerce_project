@@ -90,12 +90,10 @@ document.addEventListener("DOMContentLoaded", async (event) => {
     // delete product
     async function deleteProduct(id) {
       try {
-        const response = await db.collection('product').doc(id).delete();
-        alert("product deleted");
-        removeProductFromArray(id)
+        const response = await db.collection("product").doc(id).delete();
+        removeProductFromArray(id);
       } catch (error) {
         console.log(error);
-        alert("somethingh went wrong");
       }
     }
 
