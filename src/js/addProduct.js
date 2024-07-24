@@ -8,14 +8,20 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function addProduct() {
-  const addButton = document.querySelector("#add-button");
-
+  const addButton = document.querySelector("#add-product-button");
+  const formFeedback = document.querySelector("#add-form-feedback")
+  formFeedback.innerHTML = "";
   addButton.addEventListener("click", () => {
-    // const file = document.querySelector("#image").files[0];
     const title = document.querySelector("#title")
     const desc = document.querySelector("#desc")
+    console.log("rannnn");
 
-    db.collection("product")
+    if(!title.value || !desc.value){
+      return formFeedback.innerHTML="Please fill all fields"
+    }
+
+    else{
+      db.collection("product")
       .add({
         title: title.value,
         desc: desc.value,
@@ -30,6 +36,7 @@ function addProduct() {
         
       })
       .catch((error) => console.log(error));
+    }
   });
 }
 
