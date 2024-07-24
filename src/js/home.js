@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', async (event) => {
       .then((user)=>{
         const favorites =user._delegate._document.data.value.mapValue.fields.favorites.stringValue;
         parsedFavorites = JSON.parse(favorites).fav;
-        console.log("favsssss",parsedFavorites);
       }).catch((error)=>{
         console.log(error);
       })

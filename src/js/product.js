@@ -10,7 +10,7 @@ export function listProducts (products,favorites){
     products?.map((productData, idx)=>{
         const product  = productData.doc.data.value.mapValue.fields;
         const id = productData.doc.key.path.segments[6]
-        const isFavorite = favorites.includes(id);
+        const isFavorite = favorites.includes(id); // is element favorite
   
         productContainer.innerHTML +=`
         <div class="card shadow-lg " style="width: 18rem;">
